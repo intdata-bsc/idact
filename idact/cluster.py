@@ -5,13 +5,7 @@ How to run::
 
   python -m idact.cluster --help
 
-Or::
-
-  idact-cluster --help
-
 .. click:: idact.cluster:main
-   :prog: idact-cluster
-   :show-nested:
 
 """
 
