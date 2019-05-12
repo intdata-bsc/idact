@@ -11,28 +11,27 @@ from typing import Optional
 import click
 
 from idact import AuthMethod, KeyType
+from idact import add_cluster
+from idact import save_environment
+
 
 @click.command()
 @click.argument('cluster_name',
                 type=str)
-@click.option('--user', '-u',
-              default=None,
-              type=str,
-              help="The name of the user to log in as. Default: ''")
-@click.option('--host',  '-h',
-              default=None,
-              type=str,
-              help="The hostname of the login (head) node. Default: ''")
+@click.argument('user',
+                type=str)
+@click.argument('host',
+                type=str)
 @click.option('--port',  '-p',
-              default=None,
+              default=22,
               type=int,
               help="The ssh port. Default: 0")
 @click.option('--auth',
-              default=None,
+              default=AuthMethod.PUBLIC_KEY,
               type=AuthMethod,
               help="Authentication method. Default: AuthMethod.PUBLIC_KEY")
 @click.option('--key',
-              default=None,
+              default=KeyType.RSA,
               type=KeyType,
               help="Specified key type to be generated (Default location: ~/.ssh)")
 @click.option('--install_key',
@@ -44,12 +43,25 @@ def main(cluster_name: str,
          port: Optional[int],
          auth: Optional[AuthMethod],
          key: Optional[KeyType],
-         install_key: bool,) -> int:
+         install_key: bool) -> int:
     """A console script that executes addition of cluster to environment.
 
         CLUSTER_NAME argument is the cluster name to be created.
 
     """
+    click.echo("Adding the cluster.")
+
+    cluster = add_cluster(name=cluster_name,
+                          user=user,
+                          host=host,
+                          port=port,
+                          auth=auth,
+                          key=key,
+                          install_key=install_key)
+
+    click.echo(cluster)
+    click.echo("Saving environment.")
+    save_environment()
 
     return 0
 
