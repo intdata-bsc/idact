@@ -12,7 +12,7 @@ import click
 
 from idact import AuthMethod, KeyType
 from idact import add_cluster
-from idact import save_environment
+from idact import save_environment, load_environment
 
 
 @click.command()
@@ -22,6 +22,11 @@ from idact import save_environment
                 type=str)
 @click.argument('host',
                 type=str)
+# @click.option('--environment', '-e',
+#               default=None,
+#               type=str,
+#               help="Environment path. Default: ~/.idact.conf"
+#                    " or the value of IDACT_CONFIG_PATH.")
 @click.option('--port',  '-p',
               default=22,
               type=int,
@@ -35,6 +40,7 @@ from idact import save_environment
               type=KeyType,
               help="Specified key type to be generated (Default location: ~/.ssh)")
 @click.option('--install_key',
+              default=True,
               is_flag=True,
               help="Flag for letting idact manage the key installation.")
 def main(cluster_name: str,
@@ -49,6 +55,9 @@ def main(cluster_name: str,
         CLUSTER_NAME argument is the cluster name to be created.
 
     """
+    click.echo("Loading environment")
+    load_environment()
+
     click.echo("Adding the cluster.")
 
     cluster = add_cluster(name=cluster_name,
