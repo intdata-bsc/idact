@@ -1,6 +1,6 @@
 import sys
-import os
 from PyQt5.QtWidgets import QApplication, QPushButton, QDialog, QGridLayout, QLabel, QLineEdit
+from idact.detail.jupyter_app.main import main as deploy_notebook
 
 
 class App(QDialog):
@@ -61,6 +61,12 @@ class App(QDialog):
         cores = self.edits['cores_edit'].text()
         memory = self.edits['memory_edit'].text()
         walltime = self.edits['walltime_edit'].text()
+
+        deploy_notebook(cluster_name=cluster_name,
+                        nodes=nodes,
+                        cores=cores,
+                        memory_per_node=memory,
+                        walltime=walltime)
 
 
 if __name__ == '__main__':
