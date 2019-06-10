@@ -10,7 +10,7 @@ How to run::
 """
 
 import sys
-from idact.detail.cluster_app.main import main
+from idact.detail.cluster_app.main_click import main
 
 if __name__ == "__main__":
     sys.exit(
