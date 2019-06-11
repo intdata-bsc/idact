@@ -2,7 +2,7 @@
 
 from click.testing import CliRunner
 
-from idact.cluster import main
+from idact.add_cluster import main
 
 
 def test_no_cluster_name():

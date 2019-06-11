@@ -3,14 +3,14 @@
 
 How to run::
 
-  python -m idact.cluster --help
+  python -m idact.add_cluster --help
 
 .. click:: idact.cluster:main
 
 """
 
 import sys
-from idact.detail.cluster_app.main_click import main
+from idact.detail.add_cluster_app.main_click import main
 
 if __name__ == "__main__":
     sys.exit(

@@ -11,7 +11,7 @@ from typing import Optional
 import click
 
 from idact import AuthMethod, KeyType
-from idact.detail.cluster_app import main as cluster_app
+from idact.detail.add_cluster_app import main as cluster_app
 
 
 @click.command()
