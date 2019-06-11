@@ -8,11 +8,10 @@
 """
 from typing import Optional
 
-import click
-
 from idact import AuthMethod, KeyType
 from idact import add_cluster
 from idact import save_environment, load_environment
+
 
 def main(cluster_name: str,
          user: Optional[str],
@@ -22,21 +21,16 @@ def main(cluster_name: str,
          key: Optional[KeyType],
          install_key: bool) -> int:
 
-    click.echo("Loading environment")
     load_environment()
 
-    click.echo("Adding the cluster.")
+    add_cluster(name=cluster_name,
+                user=user,
+                host=host,
+                port=port,
+                auth=auth,
+                key=key,
+                install_key=install_key)
 
-    cluster = add_cluster(name=cluster_name,
-                          user=user,
-                          host=host,
-                          port=port,
-                          auth=auth,
-                          key=key,
-                          install_key=install_key)
-
-    click.echo(cluster)
-    click.echo("Saving environment.")
     save_environment()
 
     return 0

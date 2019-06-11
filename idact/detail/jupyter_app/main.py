@@ -49,19 +49,17 @@ def main(cluster_name: str,
     log = None
     try:
         with ExitStack() as stack:
-            click.echo("Loading environment.")
             load_environment(path=environment)
             log = get_logger(__name__)
 
             cluster = show_cluster(name=cluster_name)
 
-            cluster.config.setup_actions.jupyter = ['module load plgrid/tools/python-intel/3.6.2'] # TODO: not hardcoded
+            cluster.config.setup_actions.jupyter = ['module load plgrid/tools/python-intel/3.6.2']  # TODO: not hardcoded
             cluster.config.use_jupyter_lab = False
 
             config = cluster.config
             assert isinstance(config, ClusterConfigImpl)
             if reset_defaults:
-                click.echo("Resetting allocation parameters to defaults.")
                 config.notebook_defaults = {}
             parameters = AppAllocationParameters.deserialize(
                 serialized=config.notebook_defaults)
@@ -72,13 +70,9 @@ def main(cluster_name: str,
                                             walltime=walltime,
                                             native_args=native_arg)
             if save_defaults:
-                click.echo("Saving defaults.")
                 config.notebook_defaults = parameters.serialize()
                 save_environment(path=environment)
 
-            click.echo(format_allocation_parameters(parameters=parameters))
-
-            click.echo("Allocating nodes.")
             nodes = cluster.allocate_nodes(
                 nodes=parameters.nodes,
                 cores=parameters.cores,
@@ -92,10 +86,8 @@ def main(cluster_name: str,
             notebook = nodes[0].deploy_notebook()
             stack.enter_context(cancel_local_on_exit(notebook))
 
-            click.echo("Pushing the allocation deployment.")
             cluster.push_deployment(nodes)
 
-            click.echo("Pushing the notebook deployment.")
             cluster.push_deployment(notebook)
 
             click.echo(format_deployments_info(cluster_name=cluster_name))

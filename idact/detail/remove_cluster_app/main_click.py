@@ -7,22 +7,25 @@
 
 """
 
-from idact import save_environment
+from idact import save_environment, load_environment
 from idact import remove_cluster
-from idact.detail.remove_cluster_app import main as remove_cluster_app
 
 import click
 
 SNIPPET_SEPARATOR_LENGTH = 10
 
 
+@click.command()
+@click.argument('cluster_name',
+                type=str)
 def main(cluster_name: str) -> int:
-    """A console script that removes the cluster from the environment.
 
-        CLUSTER_NAME argument is the cluster name.
-        It must already be present in the config file.
+    click.echo("Removing the cluster.")
 
-    """
-    remove_cluster_app.main(cluster_name=cluster_name)
+    load_environment()
+
+    remove_cluster(cluster_name)
+
+    save_environment()
 
     return 0
