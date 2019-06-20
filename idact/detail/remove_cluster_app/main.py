@@ -11,10 +11,14 @@ from idact import save_environment, load_environment
 from idact import remove_cluster
 
 from idact.detail.log.get_logger import get_logger
+import click
 
 SNIPPET_SEPARATOR_LENGTH = 10
 
 
+@click.command()
+@click.argument('cluster_name',
+                type=str)
 def main(cluster_name: str) -> int:
     """A console script that removes the cluster from the environment.
 
