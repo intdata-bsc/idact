@@ -5,7 +5,7 @@ How to run::
 
   python -m idact.add_cluster --help
 
-.. click:: idact.cluster:main
+.. click:: idact.add_cluster:main
 
 """
 

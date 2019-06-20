@@ -1,17 +1,11 @@
 # -*- coding: utf-8 -*-
-"""Console script for idact-remove_cluster.
+"""Console script for idact-cluster.
 
 How to run::
 
   python -m idact.remove_cluster --help
 
-Or::
-
-  idact-notebook --help
-
-.. click:: idact.notebook:main
-   :prog: idact-notebook
-   :show-nested:
+.. click:: idact.remove_cluster:main
 
 """
 

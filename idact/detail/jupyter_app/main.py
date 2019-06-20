@@ -114,7 +114,8 @@ def main(cluster_name: str,
             cluster = show_cluster(name=cluster_name)
 
             cluster.config.setup_actions.jupyter = [
-                'module load plgrid/tools/python-intel/3.6.2']  # TODO: not hardcoded
+                'module load plgrid/tools/python-intel/3.6.2']  #TODO
+
             cluster.config.use_jupyter_lab = False
 
             config = cluster.config

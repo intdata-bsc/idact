@@ -7,14 +7,10 @@
 
 """
 from typing import Optional
-
 import click
 
 from idact import AuthMethod, KeyType
-
-from idact import add_cluster
-from idact import save_environment, load_environment
-
+from idact import add_cluster, save_environment, load_environment
 from idact.detail.log.get_logger import get_logger
 
 
@@ -30,7 +26,7 @@ from idact.detail.log.get_logger import get_logger
 #               type=str,
 #               help="Environment path. Default: ~/.idact.conf"
 #                    " or the value of IDACT_CONFIG_PATH.")
-@click.option('--port',  '-p',
+@click.option('--port', '-p',
               default=22,
               type=int,
               help="The ssh port. Default: 0")
@@ -41,7 +37,8 @@ from idact.detail.log.get_logger import get_logger
 @click.option('--key',
               default=KeyType.RSA,
               type=KeyType,
-              help="Specified key type to be generated (Default location: ~/.ssh)")
+              help="Specified key type to be generated "
+                   "(Default location: ~/.ssh)")
 @click.option('--install_key',
               default=True,
               is_flag=True,
@@ -78,4 +75,3 @@ def main(cluster_name: str,
 
     log.info("Cluster added.")
     return 0
-
