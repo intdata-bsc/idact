@@ -10,7 +10,8 @@ from typing import Optional
 import click
 
 from idact import AuthMethod, KeyType
-from idact import add_cluster, save_environment, load_environment
+from idact.core.add_cluster import add_cluster
+from idact.core.environment import save_environment, load_environment
 from idact.detail.log.get_logger import get_logger
 
 

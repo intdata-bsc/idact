@@ -8,7 +8,7 @@
 """
 
 from idact import save_environment, load_environment
-from idact import remove_cluster
+from idact.core.remove_cluster import remove_cluster
 
 from idact.detail.log.get_logger import get_logger
 import click
