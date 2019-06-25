@@ -1,8 +1,10 @@
 """This module contains the :func:`main` function for the quick Jupyter
  deployment app, see :mod:`idact.notebook`.
+
  Note: The :func:`main` function uses :func:`click.command`, so it doesn't
  show up in API docs for this module. See help message in :mod:`idact.notebook`
  instead.
+
 """
 
 from contextlib import ExitStack
@@ -98,8 +100,10 @@ def main(cluster_name: str,
     """A console script that executes a Jupyter Notebook instance on
         an allocated cluster node, and makes it accessible
         in the local browser.
+
         CLUSTER_NAME argument is the cluster name to execute the notebook on.
         It must already be present in the config file.
+
     """
     ensure_stdin_has_fileno()
     log = None
@@ -110,13 +114,6 @@ def main(cluster_name: str,
             log = get_logger(__name__)
 
             cluster = show_cluster(name=cluster_name)
-
-            # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            cluster.config.setup_actions.jupyter = [
-                'module load plgrid/tools/python-intel/3.6.2']  # TODO
-            cluster.config.use_jupyter_lab = False
-            # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
             config = cluster.config
             assert isinstance(config, ClusterConfigImpl)
             if reset_defaults:

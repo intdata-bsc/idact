@@ -1,8 +1,8 @@
 """This module contains the :func:`main` function for adding new cluster
- into local environment, see :mod:`idact.cluster`.
+ into local environment, see :mod:`idact.add_cluster`.
 
  Note: The :func:`main` function uses :func:`click.command`, so it doesn't
- show up in API docs for this module. See help message in :mod:`idact.cluster`
+ show up in API docs for this module. See help message in :mod:`idact.add_cluster`
  instead.
 
 """
@@ -13,6 +13,7 @@ from idact import AuthMethod, KeyType
 from idact.core.add_cluster import add_cluster
 from idact.core.environment import save_environment, load_environment
 from idact.detail.log.get_logger import get_logger
+from idact.detail.add_cluster_app import actions_parser as parser
 
 
 @click.command()
@@ -22,15 +23,10 @@ from idact.detail.log.get_logger import get_logger
                 type=str)
 @click.argument('host',
                 type=str)
-# @click.option('--environment', '-e',
-#               default=None,
-#               type=str,
-#               help="Environment path. Default: ~/.idact.conf"
-#                    " or the value of IDACT_CONFIG_PATH.")
 @click.option('--port', '-p',
               default=22,
               type=int,
-              help="The ssh port. Default: 0")
+              help="The ssh port. Default: 22")
 @click.option('--auth',
               default=AuthMethod.PUBLIC_KEY,
               type=AuthMethod,
@@ -43,14 +39,27 @@ from idact.detail.log.get_logger import get_logger
 @click.option('--install_key',
               default=True,
               is_flag=True,
-              help="Flag for letting idact manage the key installation.")
+              help="Flag for letting idact manage the key installation."
+                   "Default True.")
+@click.option('--actions-file',
+              default=None,
+              type=str,
+              help="In order for idact to find and execute the proper binaries, "
+                   "they must be specified as a list of Bash script lines.")
+@click.option('--use-jupyter-lab',
+              default=False,
+              is_flag=True,
+              help="Flag for using the jupyter lab instead of jupyter notebook."
+                   "Default is set to False.")
 def main(cluster_name: str,
          user: Optional[str],
          host: Optional[str],
          port: Optional[int],
          auth: Optional[AuthMethod],
          key: Optional[KeyType],
-         install_key: bool) -> int:
+         install_key: bool,
+         actions_file: Optional[str],
+         use_jupyter_lab: bool) -> int:
     """A console script that executes addition of cluster to environment.
 
         CLUSTER_NAME argument is the cluster name to be created.
@@ -63,13 +72,22 @@ def main(cluster_name: str,
     load_environment()
 
     log.info("Adding cluster...")
-    add_cluster(name=cluster_name,
-                user=user,
-                host=host,
-                port=port,
-                auth=auth,
-                key=key,
-                install_key=install_key)
+    cluster = add_cluster(name=cluster_name,
+                          user=user,
+                          host=host,
+                          port=port,
+                          auth=auth,
+                          key=key,
+                          install_key=install_key)
+
+    node = cluster.get_access_node()
+    node.connect()
+
+    cluster.config.use_jupyter_lab = use_jupyter_lab
+
+    if actions_file is not None:
+        actions = parser.parse_actions(actions_file)
+        cluster.config.setup_actions.jupyter = actions
 
     log.info("Saving environment...")
     save_environment()
