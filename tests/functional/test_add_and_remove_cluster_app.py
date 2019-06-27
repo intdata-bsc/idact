@@ -13,4 +13,3 @@ def test_adding_and_removing_cluster():
 
     result = runner.invoke(remove_cluster_main, ['test-cluster'])
     assert 'Cluster removed.' in result.output
-
