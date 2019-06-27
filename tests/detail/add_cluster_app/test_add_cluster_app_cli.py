@@ -10,7 +10,7 @@ def test_no_cluster_name():
     result = runner.invoke(main)
     assert result.exit_code == 2
     print(result.output)
-    assert 'Usage: cluster.py [OPTIONS] CLUSTER_NAME USER HOST\n' \
+    assert 'Usage: add_cluster.py [OPTIONS] CLUSTER_NAME USER HOST\n' \
            in result.output
     assert 'Error: Missing argument' in result.output
 
