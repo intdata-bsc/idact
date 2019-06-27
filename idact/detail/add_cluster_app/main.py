@@ -2,7 +2,8 @@
  into local environment, see :mod:`idact.add_cluster`.
 
  Note: The :func:`main` function uses :func:`click.command`, so it doesn't
- show up in API docs for this module. See help message in :mod:`idact.add_cluster`
+ show up in API docs for this module. See help message in
+ :mod:`idact.add_cluster`
  instead.
 
 """
@@ -44,12 +45,14 @@ from idact.detail.add_cluster_app import actions_parser as parser
 @click.option('--actions-file',
               default=None,
               type=str,
-              help="In order for idact to find and execute the proper binaries, "
-                   "they must be specified as a list of Bash script lines.")
+              help="In order for idact to find and execute the proper "
+                   "binaries, they must be specified as a list of "
+                   "Bash script lines.")
 @click.option('--use-jupyter-lab',
               default=False,
               is_flag=True,
-              help="Flag for using the jupyter lab instead of jupyter notebook."
+              help="Flag for using the jupyter lab instead of "
+                   "jupyter notebook. "
                    "Default is set to False.")
 def main(cluster_name: str,
          user: Optional[str],

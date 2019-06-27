@@ -16,6 +16,3 @@ def test_parse_bash_commands():
                                "module load plgrid/tools/python-intel/3.6.2"]
 
     os.remove("tmp-testfile")
-
-
-
