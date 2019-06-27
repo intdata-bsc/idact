@@ -10,8 +10,8 @@ def test_no_cluster_name():
     result = runner.invoke(main)
     assert result.exit_code == 2
     print(result.output)
-   # assert 'Usage: remove_cluster.py [OPTIONS] CLUSTER_NAME\n' \
-    #       in result.output
+    assert 'Usage: main [OPTIONS] CLUSTER_NAME\n' \
+           in result.output
     assert 'Error: Missing argument' in result.output
 
 
