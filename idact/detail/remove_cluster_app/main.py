@@ -15,7 +15,8 @@ from idact.detail.log.get_logger import get_logger
 
 SNIPPET_SEPARATOR_LENGTH = 10
 
-click.command()
+
+@click.command()
 @click.argument('cluster_name',
                 type=str)
 def main(cluster_name: str) -> int:
