@@ -1,3 +1,4 @@
+"""Test for the parser of actions file."""
 import os
 from idact.detail.add_cluster_app import actions_parser as parser
 

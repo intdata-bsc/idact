@@ -66,6 +66,8 @@ def main(cluster_name: str,
     """A console script that executes addition of cluster to environment.
 
         CLUSTER_NAME argument is the cluster name to be created.
+        USER argument is the username for example 'plgtest'
+        HOST argument is the host address for example 'pro.cyfronet.pl'
 
     """
 
