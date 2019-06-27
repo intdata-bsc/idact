@@ -1,0 +1,25 @@
+"""Sample CLI test."""
+
+from click.testing import CliRunner
+
+from idact.remove_cluster import main
+
+
+def test_no_cluster_name():
+    runner = CliRunner()
+    result = runner.invoke(main)
+    assert result.exit_code == 2
+    print(result.output)
+   # assert 'Usage: remove_cluster.py [OPTIONS] CLUSTER_NAME\n' \
+    #       in result.output
+    assert 'Error: Missing argument' in result.output
+
+
+def test_help():
+    runner = CliRunner()
+    result = runner.invoke(main, ['--help'])
+    assert result.exit_code == 0
+    print(result.output)
+    assert 'A console script that removes the cluster ' \
+           'from the environment.' in result.output
+    assert 'Show this message and exit.' in result.output
