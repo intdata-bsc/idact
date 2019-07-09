@@ -3,6 +3,6 @@ def parse_actions(file_name: str):
     The file should contain bash commands
     line after line.
     """
-    with open(file_name) as file:
-        list_of_actions = file.read().split('\n')
+    with open(file_name, 'r') as actions_file:
+        list_of_actions = actions_file.read().split('\n')
     return list_of_actions
