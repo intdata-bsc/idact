@@ -35,13 +35,13 @@ from idact.detail.add_cluster_app import actions_parser as parser
 @click.option('--key',
               default=KeyType.RSA,
               type=KeyType,
-              help="Specified key type to be generated "
-                   "(Default location: ~/.ssh)")
+              help="Specified key type to be generated. "
+                   "Default location: ~/.ssh")
 @click.option('--install_key',
               default=True,
               is_flag=True,
-              help="Flag for letting idact manage the key installation."
-                   "Default True.")
+              help="Flag for letting idact manage the key installation. "
+                   "Default: True")
 @click.option('--actions-file',
               default=None,
               type=str,
@@ -53,7 +53,7 @@ from idact.detail.add_cluster_app import actions_parser as parser
               is_flag=True,
               help="Flag for using the jupyter lab instead of "
                    "jupyter notebook. "
-                   "Default is set to False.")
+                   "Default: False")
 def main(cluster_name: str,
          user: Optional[str],
          host: Optional[str],
