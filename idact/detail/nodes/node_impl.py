@@ -44,8 +44,12 @@ class NodeImpl(NodeInternal):
 
     """
 
-    def connect(self, timeout: Optional[int] = None):
-        result = self.run("echo 'Testing connection...'", timeout=timeout)
+    def connect(self,
+                timeout: Optional[int] = None,
+                password: Optional[str] = None):
+        result = self.run("echo 'Testing connection...'",
+                          timeout=timeout,
+                          password=password)
         if result != 'Testing connection...':
             raise RuntimeError("Unexpected test command output.")
 
@@ -70,15 +74,18 @@ class NodeImpl(NodeInternal):
 
     def run(self,
             command: str,
-            timeout: Optional[int] = None) -> str:
+            timeout: Optional[int] = None,
+            password: Optional[str] = None) -> str:
         return self.run_impl(command=command,
                              timeout=timeout,
-                             install_keys=False)
+                             install_keys=False,
+                             password=password)
 
     def run_impl(self,
                  command: str,
                  timeout: Optional[int] = None,
-                 install_keys: bool = False) -> str:
+                 install_keys: bool = False,
+                 password: Optional[str] = None) -> str:
         try:
             @fabric.decorators.task
             def task():
@@ -89,7 +96,8 @@ class NodeImpl(NodeInternal):
                                                  timeout=timeout)
 
             return self.run_task(task=task,
-                                 install_keys=install_keys)
+                                 install_keys=install_keys,
+                                 password=password)
         except CommandTimeout as e:
             raise TimeoutError("Command timed out: '{command}'".format(
                 command=command)) from e
@@ -99,7 +107,8 @@ class NodeImpl(NodeInternal):
 
     def run_task(self,
                  task: Callable,
-                 install_keys: bool = False) -> Any:
+                 install_keys: bool = False,
+                 password: Optional[str] = None) -> Any:
         try:
             self._ensure_allocated()
 
@@ -107,7 +116,8 @@ class NodeImpl(NodeInternal):
                 with authenticate(host=self._host,
                                   port=self._port,
                                   config=self._config,
-                                  install_shared_keys=install_keys):
+                                  install_shared_keys=install_keys,
+                                  password=password):
                     result = fabric.tasks.execute(task)
 
             output = next(iter(result.values()))

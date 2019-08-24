@@ -17,11 +17,14 @@ class Node(ABC):
     """Cluster node interface."""
 
     @abstractmethod
-    def connect(self, timeout: Optional[int] = None):
+    def connect(self,
+                timeout: Optional[int] = None,
+                password: Optional[str] = None):
         """Just connects to the node and executes a test command.
             Doing this explicitly is optional.
 
             :param timeout: Execution timeout.
+            :param password: Password to the cluster
         """
         pass
 

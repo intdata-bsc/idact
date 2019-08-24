@@ -2,7 +2,7 @@
     according to the configuration."""
 
 from contextlib import contextmanager
-from typing import Tuple
+from typing import Tuple, Optional
 
 from fabric.state import env
 
@@ -46,16 +46,20 @@ def get_host_strings(host: str,
     return env_gateway, env_host_string
 
 
-def install_key_using_password_authentication(config: ClusterConfig):
+def install_key_using_password_authentication(config: ClusterConfig,
+                                              password: Optional[str] = None):
     """Authenticates with a password and tries to install public key,
         using the default authorized_keys file.
 
         :param config: Cluster config.
 
+        :param password: Password to the cluster
+
     """
     access_node = get_host_string(config=config)
 
-    env.password = get_password(config=config)
+    env.password = get_password(config=config, password=password)
+
     saved_gateway, saved_host_string = env.gateway, env.host_string
     env.gateway, env.host_string = None, access_node
     try:
@@ -91,6 +95,7 @@ def install_keys_using_current_authentication(access_node: str,
 def authenticate(host: str,
                  port: int,
                  config: ClusterConfig,
+                 password: Optional[str] = None,
                  install_shared_keys: bool = False):
     """Authenticates the user in Fabric.
 
@@ -99,6 +104,8 @@ def authenticate(host: str,
         :param port: SSH port.
 
         :param config: Cluster config.
+
+        :param password: Password to the cluster
 
         :param install_shared_keys: True, if shared home keys be installed
                                     after authentication.
@@ -127,7 +134,8 @@ def authenticate(host: str,
             if config.install_key:
                 with stage_info(log, "Installing key using password"
                                      " authentication."):
-                    install_key_using_password_authentication(config=config)
+                    install_key_using_password_authentication(config=config,
+                                                              password=password)
                 env.key_filename = config.key
                 config.install_key = False
                 env.password = None
