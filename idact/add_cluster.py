@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Console script for idact-cluster.
+"""Console script for idact-add-cluster.
 
 How to run::
 

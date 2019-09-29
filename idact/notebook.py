@@ -1,12 +1,19 @@
 # -*- coding: utf-8 -*-
 """Console script for idact-notebook.
+
 How to run::
+
   python -m idact.notebook --help
+
 Or::
+
   idact-notebook --help
+
 .. click:: idact.notebook:main
+
    :prog: idact-notebook
    :show-nested:
+
 """
 
 import sys
