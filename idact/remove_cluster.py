@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-"""Console script for idact-notebook.
+"""Console script for idact-remove_cluster.
 
 How to run::
 
-  python -m idact.notebook --help
+  python -m idact.remove_cluster --help
 
 Or::
 
@@ -16,7 +16,7 @@ Or::
 """
 
 import sys
-from idact.detail.jupyter_app.main_click import main
+from idact.detail.remove_cluster_app.main import main
 
 if __name__ == "__main__":
     sys.exit(
