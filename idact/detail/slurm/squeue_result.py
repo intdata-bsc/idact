@@ -72,3 +72,13 @@ class SqueueResult:
     def state(self) -> str:
         """Job state code."""
         return self._state
+
+    def __str__(self) -> str:
+        return "job_id: " + str(self._job_id) + \
+                " end_time: " + str(self._end_time) + \
+                " node_count: " + str(self._node_count) + \
+                " node_list: " + str(self._node_list) + \
+                " reason: " + str(self._reason) + \
+                " state: " + str(self._state)
+
+

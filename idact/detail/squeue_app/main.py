@@ -28,7 +28,9 @@ def main(cluster_name: str) -> int:
 
     cluster = show_cluster(name=cluster_name)
     node = cluster.get_access_node()
+    jobs = run_squeue(node)
 
-    print(run_squeue(node))
+    for job_id in jobs.keys():
+        log.info(jobs[job_id])
 
     return 0
