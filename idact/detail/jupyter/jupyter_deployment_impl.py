@@ -74,7 +74,6 @@ class JupyterDeploymentImpl(JupyterDeployment, Serializable):
                                            "Cancelling Jupyter deployment."))
             stack.enter_context(cancel_on_exit(self._deployment))
             self.cancel_local()
-
     def cancel_local(self):
         self._tunnel.close()
 
