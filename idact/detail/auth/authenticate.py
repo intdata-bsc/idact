@@ -129,7 +129,7 @@ def authenticate(host: str,
     log = get_logger(__name__)
     try:
         if config.auth == AuthMethod.ASK:
-            env.password = get_password(config=config)
+            env.password = get_password(config=config, password=password)
         elif config.auth == AuthMethod.PUBLIC_KEY:
             if config.install_key:
                 with stage_info(log, "Installing key using password"

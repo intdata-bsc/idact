@@ -34,7 +34,8 @@ class NodeInternal(Node, Serializable):
     @abstractmethod
     def run_task(self,
                  task: Callable,
-                 install_keys: bool = False) -> Any:
+                 install_keys: bool = False,
+                 password: Optional[str] = None) -> Any:
         """Internal run task.
 
             :param task: Fabric task to run.
@@ -43,6 +44,7 @@ class NodeInternal(Node, Serializable):
                             after authentication (see :func:`.install_key`,
                             :func:`.install_shared_home_key`).
 
+            :param password: Password to the cluster.
         """
         pass
 

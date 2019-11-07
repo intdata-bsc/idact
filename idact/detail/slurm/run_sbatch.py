@@ -57,7 +57,8 @@ def format_sbatch_allocation_request(args: SbatchArguments,
 
 def prepare_sbatch_allocation_request(args: SbatchArguments,
                                       config: ClusterConfig,
-                                      node: NodeInternal) -> \
+                                      node: NodeInternal,
+                                      password: Optional[str] = None) -> \
     Tuple[str, str]:  # noqa
     """Uploads the entry point script and returns the formatted sbatch
         command.
@@ -68,6 +69,7 @@ def prepare_sbatch_allocation_request(args: SbatchArguments,
 
         :param node: Node to upload entry point to.
 
+        :param password: Password to the cluster.
     """
     log = get_logger(__name__)
     entry_point_script_contents = \
@@ -76,7 +78,8 @@ def prepare_sbatch_allocation_request(args: SbatchArguments,
 
     entry_point_script = upload_entry_point(
         contents=entry_point_script_contents,
-        node=node)
+        node=node,
+        password=password)
 
     return format_sbatch_allocation_request(
         args,
@@ -84,7 +87,8 @@ def prepare_sbatch_allocation_request(args: SbatchArguments,
 
 
 def run_sbatch(args: SbatchArguments,
-               node: NodeInternal) -> Tuple[int, str]:
+               node: NodeInternal,
+               password: Optional[str] = None) -> Tuple[int, str]:
     """Runs sbatch on the given node. Returns the job id and the path
         to the entry point script.
 
@@ -92,13 +96,15 @@ def run_sbatch(args: SbatchArguments,
 
         :param node: Node to run sbatch on.
 
+        :param password: Password to the cluster.
     """
     log = get_logger(__name__)
 
     request, entry_point_script_path = prepare_sbatch_allocation_request(
         args=args,
         config=node.config,
-        node=node)
+        node=node,
+        password=password)
     log.debug("Allocation request: %s", request)
     output = node.run_impl(request,
                            install_keys=True)

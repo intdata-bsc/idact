@@ -60,7 +60,8 @@ class ClusterImpl(Cluster):
                        walltime: Union[str, Walltime] = None,
                        native_args: Optional[
                            Dict[str, Optional[
-                               str]]] = None) -> Nodes:  # noqa, pylint: disable=bad-whitespace,line-too-long
+                               str]]] = None,
+                       password: Optional[str] = None) -> Nodes:  # noqa, pylint: disable=bad-whitespace,line-too-long
         if memory_per_node is None:
             memory_per_node = bitmath.GiB(1)
         elif isinstance(memory_per_node, str):
@@ -78,7 +79,8 @@ class ClusterImpl(Cluster):
                                           native_args=native_args)
 
         return allocate_slurm_nodes(parameters=parameters,
-                                    config=self._config)
+                                    config=self._config,
+                                    password=password)
 
     def get_access_node(self) -> NodeInternal:
         return get_access_node(config=self._config)

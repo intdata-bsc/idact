@@ -27,7 +27,8 @@ class Cluster(ABC):
                        memory_per_node: Union[str, bitmath.Byte] = None,
                        walltime: Union[str, Walltime] = None,
                        native_args: Optional[Dict[str, Optional[
-                           str]]] = None) -> Nodes:  # noqa, pylint: disable=bad-whitespace,line-too-long
+                           str]]] = None,
+                       password: Optional[str] = None) -> Nodes:  # noqa, pylint: disable=bad-whitespace,line-too-long
         """Tries to allocate nodes with the given parameters.
 
             :param nodes:
@@ -55,6 +56,7 @@ class Cluster(ABC):
                 * Values are not validated.
                 * Supported arguments take precedence over native arguments.
                 * Arguments with None as value are treated as flags.
+            :param password: Password to the cluster.
         """
         pass
 

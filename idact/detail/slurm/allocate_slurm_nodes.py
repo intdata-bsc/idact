@@ -1,4 +1,5 @@
 """This module contains a function for allocating Slurm nodes."""
+from typing import Optional
 
 from idact.core.config import ClusterConfig
 from idact.core.nodes import Nodes
@@ -19,13 +20,15 @@ from idact.detail.slurm.squeue_result import SqueueResult
 
 
 def allocate_slurm_nodes(parameters: AllocationParameters,
-                         config: ClusterConfig) -> Nodes:
+                         config: ClusterConfig,
+                         password: Optional[str] = None) -> Nodes:
     """Tries to allocate nodes using Slurm.
 
        :param parameters:   Allocation parameters.
 
        :param config: Config for the cluster to allocate nodes on.
 
+       :param password: Password to the cluster.
     """
     args = SbatchArguments(params=parameters)
 
@@ -33,7 +36,8 @@ def allocate_slurm_nodes(parameters: AllocationParameters,
     with stage_debug(log, "Executing sbatch on access node."):
         access_node = get_access_node(config=config)
         job_id, entry_point_script_path = run_sbatch(args=args,
-                                                     node=access_node)
+                                                     node=access_node,
+                                                     password=password)
 
     def run_squeue_task() -> SqueueResult:
         job_squeue = run_squeue(node=access_node)

@@ -21,7 +21,8 @@ ENTRY_POINT_FILE_NAME_LENGTH = 32
 
 def upload_entry_point(contents: str,
                        node: NodeInternal,
-                       runtime_dir: Optional[str] = None) -> str:
+                       runtime_dir: Optional[str] = None,
+                       password: Optional[str] = None) -> str:
     """Uploads the entry point script and returns its path.
 
         :param contents: Script contents.
@@ -31,6 +32,7 @@ def upload_entry_point(contents: str,
         :param runtime_dir: Runtime dir for deployment script.
                             Default: ~/.idact/entry_points.
 
+        :param password: Password to the cluster.
     """
     log = get_logger(__name__)
 
@@ -71,6 +73,6 @@ def upload_entry_point(contents: str,
                     real_path=real_path))
         result.append(real_path)
 
-    node.run_task(task)
+    node.run_task(task, password=password)
 
     return result[0]
