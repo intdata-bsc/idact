@@ -35,10 +35,8 @@ SNIPPET_SEPARATOR_LENGTH = 10
 @click.command()
 @click.argument('cluster_name',
                 type=str)
-@click.option('--job_id', '-e',
-              default=None,
-              type=int,
-              help="ID of the job with allocated resources")
+@click.argument('job_id',
+                type=int)
 def main(cluster_name: str,
          job_id: int) -> int:
     """A console script that executes a Jupyter Notebook instance on
@@ -71,7 +69,14 @@ def main(cluster_name: str,
             job = run_squeue_task()
 
             node_count = job.node_count
+            print(config)
             nodes_in_cluster = [NodeImpl(config=config) for _ in range(node_count)]
+
+            nodes_in_cluster[0].make_allocated(host=config.host,
+                                               port=config.port,
+                                               cores=None,
+                                               memory=None,
+                                               allocated_until=job.end_time)
 
             entry_point_script_path = "~/.idact/entry_points"
 
