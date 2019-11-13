@@ -31,7 +31,7 @@ from idact.detail.add_cluster_app import actions_parser as parser
 @click.option('--auth',
               default='PUBLIC_KEY',
               type=str,
-              help="Authentication method. Avilable values: PUBLIC_KEY, ASK_EVERYIME. "
+              help="Authentication method. Avilable values: PUBLIC_KEY, ASK_EVERYTIME. "
               "Default: PUBLIC_KEY")
 @click.option('--install_key',
               default=True,
@@ -78,23 +78,19 @@ def main(cluster_name: str,
     if auth == 'PUBLIC_KEY':
         auth_method = AuthMethod.PUBLIC_KEY
         key_type = KeyType.RSA
-        cluster = add_cluster(name=cluster_name,
-                              user=user,
-                              host=host,
-                              port=port,
-                              auth=auth_method,
-                              key=key_type,
-                              install_key=install_key)
-    elif auth == 'ASK_EVERYIME':
+    elif auth == 'ASK_EVERYTIME':
         auth_method = AuthMethod.ASK
-        cluster = add_cluster(name=cluster_name,
-                              user=user,
-                              host=host,
-                              port=port,
-                              auth=auth_method,
-                              install_key=install_key)
+        key_type = None
     else:
-        raise ValueError("Auth must be one of: PUBLIC_KEY, ASK_EVERYIME")
+        raise ValueError("Auth must be one of: PUBLIC_KEY, ASK_EVERYTIME")
+
+    cluster = add_cluster(name=cluster_name,
+                          user=user,
+                          host=host,
+                          port=port,
+                          auth=auth_method,
+                          key=key_type,
+                          install_key=install_key)
 
     node = cluster.get_access_node()
     node.connect()
