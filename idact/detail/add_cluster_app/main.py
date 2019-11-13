@@ -44,10 +44,7 @@ from idact.detail.add_cluster_app import actions_parser as parser
               type=str,
               help="In order for idact to find and execute the proper "
                    "binaries, they must be specified as a list of "
-                   "Bash script lines. "
-                   "NOTE: RuntimeError: Retried and failed: config.retries"
-                   "[Retry.JUPYTER_JSON].{count=15, seconds_between=1} "
-                   "could be caused by not specifying this file.")
+                   "Bash script lines.")
 @click.option('--use-jupyter-lab',
               default=False,
               is_flag=True,
