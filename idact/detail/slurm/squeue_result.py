@@ -80,5 +80,3 @@ class SqueueResult:
                 " node_list: " + str(self._node_list) + \
                 " reason: " + str(self._reason) + \
                 " state: " + str(self._state)
-
-

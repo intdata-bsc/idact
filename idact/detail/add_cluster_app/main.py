@@ -31,7 +31,8 @@ from idact.detail.add_cluster_app import actions_parser as parser
 @click.option('--auth',
               default='PUBLIC_KEY',
               type=str,
-              help="Authentication method. Avilable values: PUBLIC_KEY, ASK_EVERYTIME. "
+              help="Authentication method. "
+              "Avilable values: PUBLIC_KEY, ASK_EVERYTIME. "
               "Default: PUBLIC_KEY")
 @click.option('--install_key',
               default=True,
@@ -44,8 +45,9 @@ from idact.detail.add_cluster_app import actions_parser as parser
               help="In order for idact to find and execute the proper "
                    "binaries, they must be specified as a list of "
                    "Bash script lines. "
-                   "NOTE: RuntimeError: Retried and failed: config.retries[Retry.JUPYTER_JSON]."
-                   "{count=15, seconds_between=1} could be caused by not specifying this file.")
+                   "NOTE: RuntimeError: Retried and failed: config.retries"
+                   "[Retry.JUPYTER_JSON].{count=15, seconds_between=1} "
+                   "could be caused by not specifying this file.")
 @click.option('--use-jupyter-lab',
               default=False,
               is_flag=True,
