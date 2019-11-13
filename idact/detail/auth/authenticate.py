@@ -111,7 +111,7 @@ def authenticate(host: str,
                                     after authentication.
 
     """
-    if config.auth not in [AuthMethod.ASK, AuthMethod.PUBLIC_KEY]:
+    if config.auth not in [AuthMethod.ASK, AuthMethod.PUBLIC_KEY, AuthMethod.PRIVATE_KEY]:
         raise NotImplementedError(
             "Authentication method not implemented: '{}'.".format(
                 config.auth))
