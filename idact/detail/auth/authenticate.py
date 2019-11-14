@@ -134,8 +134,9 @@ def authenticate(host: str,
             if config.install_key:
                 with stage_info(log, "Installing key using password"
                                      " authentication."):
-                    install_key_using_password_authentication(config=config,
-                                                              password=password)
+                    install_key_using_password_authentication(
+                        config=config,
+                        password=password)
                 env.key_filename = config.key
                 config.install_key = False
                 env.password = None

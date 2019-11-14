@@ -29,14 +29,11 @@ from idact.detail.add_cluster_app import actions_parser as parser
               type=int,
               help="The ssh port. Default: 22")
 @click.option('--auth',
-              default=AuthMethod.PUBLIC_KEY,
-              type=AuthMethod,
-              help="Authentication method. Default: AuthMethod.PUBLIC_KEY")
-@click.option('--key',
-              default=KeyType.RSA,
-              type=KeyType,
-              help="Specified key type to be generated. "
-                   "Default location: ~/.ssh")
+              default='PUBLIC_KEY',
+              type=str,
+              help="Authentication method. "
+              "Avilable values: PUBLIC_KEY, ASK_EVERYTIME. "
+              "Default: PUBLIC_KEY")
 @click.option('--install_key',
               default=True,
               is_flag=True,
@@ -59,7 +56,6 @@ def main(cluster_name: str,
          host: Optional[str],
          port: Optional[int],
          auth: Optional[AuthMethod],
-         key: Optional[KeyType],
          install_key: bool,
          actions_file: Optional[str],
          use_jupyter_lab: bool) -> int:
@@ -77,12 +73,22 @@ def main(cluster_name: str,
     load_environment()
 
     log.info("Adding cluster...")
+
+    if auth == 'PUBLIC_KEY':
+        auth_method = AuthMethod.PUBLIC_KEY
+        key_type = KeyType.RSA
+    elif auth == 'ASK_EVERYTIME':
+        auth_method = AuthMethod.ASK
+        key_type = None
+    else:
+        raise ValueError("Auth must be one of: PUBLIC_KEY, ASK_EVERYTIME")
+
     cluster = add_cluster(name=cluster_name,
                           user=user,
                           host=host,
                           port=port,
-                          auth=auth,
-                          key=key,
+                          auth=auth_method,
+                          key=key_type,
                           install_key=install_key)
 
     node = cluster.get_access_node()
