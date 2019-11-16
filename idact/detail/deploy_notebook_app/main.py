@@ -1,8 +1,10 @@
 """This module contains the :func:`main` function for the quick Jupyter
- deployment app on previously allocated resources, see :mod:`idact.deploy_notebook`.
+ deployment app on previously allocated resources,
+  see :mod:`idact.deploy_notebook`.
 
  Note: The :func:`main` function uses :func:`click.command`, so it doesn't
- show up in API docs for this module. See help message in :mod:`idact.deploy_notebook`
+ show up in API docs for this module.
+ See help message in :mod:`idact.deploy_notebook`
  instead.
 
 """
@@ -70,7 +72,8 @@ def main(cluster_name: str,
 
             node_count = job.node_count
             print(config)
-            nodes_in_cluster = [NodeImpl(config=config) for _ in range(node_count)]
+            nodes_in_cluster = \
+                [NodeImpl(config=config) for _ in range(node_count)]
 
             nodes_in_cluster[0].make_allocated(host=config.host,
                                                port=config.port,

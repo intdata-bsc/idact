@@ -2,7 +2,8 @@
 for future, see :mod:`idact.allocate_resources`.
 
  Note: The :func:`main` function uses :func:`click.command`, so it doesn't
- show up in API docs for this module. See help message in :mod:`idact.allocate_resources`
+ show up in API docs for this module.
+ See help message in :mod:`idact.allocate_resources`
  instead.
 
 """
@@ -101,7 +102,7 @@ def main(cluster_name: str,
     ensure_stdin_has_fileno()
     log = None
     try:
-        with ExitStack() as stack:
+        with ExitStack():
             click.echo("Loading environment.")
             load_environment(path=environment)
             log = get_logger(__name__)

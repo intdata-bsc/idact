@@ -18,8 +18,8 @@ from idact.detail.slurm.run_squeue import run_squeue
 @click.argument('cluster_name',
                 type=str)
 def main(cluster_name: str) -> int:
-    """A console script that shows information about jobs located in the Slurm
-       scheduling queue.
+    """A console script that shows information about jobs
+    located in the Slurm scheduling queue.
 
         CLUSTER_NAME argument is the cluster name.
         It must already be present in the config file.
