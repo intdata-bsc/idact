@@ -32,13 +32,18 @@ from idact.detail.add_cluster_app import actions_parser as parser
               default='GENERATE_NEW_KEY',
               type=str,
               help="Authentication method. "
-              "Avilable values: GENERATE_NEW_KEY, PRIVATE_KEY, ASK_EVERYTIME. "
-              "Default: GENERATE_NEW_KEY")
+              "Available values: GENERATE_KEY, PRIVATE_KEY, ASK_EVERYTIME. "
+              "Default: GENERATE_KEY")
 @click.option('--key',
               default="~/.ssh",
               type=str,
-              help="Previously generated private key "
+              help="Path to the previously generated private key "
                    "Default location: ~/.ssh")
+@click.option('--key_type',
+              default="RSA",
+              type=str,
+              help="Key type of a newly generated key "
+                    "Available types: RSA ")
 @click.option('--install_key',
               default=True,
               is_flag=True,
@@ -61,7 +66,8 @@ def main(cluster_name: str,
          host: Optional[str],
          port: Optional[int],
          auth: Optional[AuthMethod],
-         key: Optional[KeyType],
+         key: Optional[str],
+         key_type: Optional[str],
          install_key: bool,
          actions_file: Optional[str],
          use_jupyter_lab: bool) -> int:
@@ -80,9 +86,12 @@ def main(cluster_name: str,
 
     log.info("Adding cluster...")
 
-    if auth == 'GENERATE_NEW_KEY':
-        auth_method = AuthMethod.PUBLIC_KEY
-        key_type = KeyType.RSA
+    if auth == 'GENERATE_KEY':
+        auth_method = AuthMethod.GENERATE_KEY
+        if key_type == 'RSA':
+            key_type = KeyType.RSA
+        else:
+            ValueError("Unknown key type")
     elif auth == 'ASK_EVERYTIME':
         auth_method = AuthMethod.ASK
         key_type = None

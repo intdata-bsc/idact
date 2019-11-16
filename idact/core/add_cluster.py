@@ -77,7 +77,7 @@ def add_cluster(name: str,
         log.info("No auth method specified, defaulting to password-based.")
         auth = AuthMethod.ASK
 
-    if auth is AuthMethod.PUBLIC_KEY:
+    if auth is AuthMethod.GENERATE_KEY:
         if isinstance(key, KeyType):
             log.info("Generating public-private key pair.")
             key = generate_key(host=host, key_type=key)
