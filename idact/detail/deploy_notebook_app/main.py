@@ -1,8 +1,8 @@
 """This module contains the :func:`main` function for the quick Jupyter
- deployment app, see :mod:`idact.notebook`.
+ deployment app on previously allocated resources, see :mod:`idact.deploy_notebook`.
 
  Note: The :func:`main` function uses :func:`click.command`, so it doesn't
- show up in API docs for this module. See help message in :mod:`idact.notebook`
+ show up in API docs for this module. See help message in :mod:`idact.deploy_notebook`
  instead.
 
 """
@@ -40,7 +40,7 @@ SNIPPET_SEPARATOR_LENGTH = 10
 def main(cluster_name: str,
          job_id: int) -> int:
     """A console script that executes a Jupyter Notebook instance on
-        an previously allocated resources
+        previously allocated resources
 
         CLUSTER_NAME argument is the cluster name to execute the notebook on.
         It must already be present in the config file.

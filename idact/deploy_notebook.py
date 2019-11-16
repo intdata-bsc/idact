@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Console script for idact-deploy-notebook.
+"""Console script for idact-deploy_notebook.
 
 How to run::
 

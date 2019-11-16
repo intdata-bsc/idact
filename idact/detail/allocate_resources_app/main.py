@@ -1,8 +1,8 @@
-"""This module contains the :func:`main` function for the quick Jupyter
- deployment app, see :mod:`idact.notebook`.
+"""This module contains the :func:`main` function for the allocating resources
+for future, see :mod:`idact.allocate_resources`.
 
  Note: The :func:`main` function uses :func:`click.command`, so it doesn't
- show up in API docs for this module. See help message in :mod:`idact.notebook`
+ show up in API docs for this module. See help message in :mod:`idact.allocate_resources`
  instead.
 
 """
@@ -14,7 +14,6 @@ import click
 
 from idact import load_environment, show_cluster, save_environment
 from idact.detail.config.client.client_cluster_config import ClusterConfigImpl
-from idact.detail.deployment.cancel_on_exit import cancel_on_exit
 from idact.detail.helper.ensure_stdin_has_fileno import \
     ensure_stdin_has_fileno
 from idact.detail.jupyter_app.app_allocation_parameters import \
@@ -92,9 +91,7 @@ def main(cluster_name: str,
          memory_per_node: Optional[str],
          walltime: Optional[str],
          native_arg: List[Tuple[str, str]]) -> int:
-    """A console script that executes a Jupyter Notebook instance on
-        an allocated cluster node, and makes it accessible
-        in the local browser.
+    """A console script that allocates resources
 
         CLUSTER_NAME argument is the cluster name to execute the notebook on.
         It must already be present in the config file.

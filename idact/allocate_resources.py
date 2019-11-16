@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Console script for idact-deploy-notebook.
+"""Console script for idact-allocate_resources.
 
 How to run::
 
@@ -13,5 +13,4 @@ import sys
 from idact.detail.allocate_resources_app.main import main
 
 if __name__ == "__main__":
-    sys.exit(
-        main())  # pragma: no cover, pylint: disable=no-value-for-parameter
+    sys.exit(main())  # pragma: no cover, pylint: disable=no-value-for-parameter
