@@ -43,7 +43,7 @@ from idact.detail.add_cluster_app import actions_parser as parser
               default="RSA",
               type=str,
               help="Key type of a newly generated key "
-                    "Available types: RSA ")
+                   "Available types: RSA ")
 @click.option('--install_key',
               default=True,
               is_flag=True,
@@ -97,6 +97,7 @@ def main(cluster_name: str,
         key_type = None
     elif auth == 'PRIVATE_KEY':
         auth_method = AuthMethod.PRIVATE_KEY
+        install_key = False
         key_type = None
     else:
         raise ValueError("Auth must be one of: PUBLIC_KEY, PRIVATE KEY, ASK_EVERYTIME")
