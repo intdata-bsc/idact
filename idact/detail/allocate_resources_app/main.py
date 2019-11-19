@@ -1,5 +1,5 @@
 """This module contains the :func:`main` function for the allocating resources
-for future, see :mod:`idact.allocate_resources`.
+, see :mod:`idact.allocate_resources`.
 
  Note: The :func:`main` function uses :func:`click.command`, so it doesn't
  show up in API docs for this module.
@@ -34,7 +34,7 @@ SNIPPET_SEPARATOR_LENGTH = 10
 @click.argument('cluster_name',
                 type=str)
 @click.option('--environment', '-e',
-              default=None,
+              default="~/.idact.conf",
               type=str,
               help="Environment path. Default: ~/.idact.conf"
                    " or the value of IDACT_CONFIG_PATH.")
