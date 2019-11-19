@@ -9,7 +9,7 @@ def test_entry_point_disabled_sshd():
     config = ClusterConfigImpl(host='host',
                                port=123,
                                user='user',
-                               auth=AuthMethod.PUBLIC_KEY,
+                               auth=AuthMethod.GENERATE_KEY,
                                disable_sshd=True)
     formatted = get_entry_point_script_contents(config=config)
     assert formatted == ("#!/usr/bin/env bash\n"
@@ -20,7 +20,7 @@ def test_entry_point_sshd():
     config = ClusterConfigImpl(host='host',
                                port=123,
                                user='user',
-                               auth=AuthMethod.PUBLIC_KEY,
+                               auth=AuthMethod.GENERATE_KEY,
                                disable_sshd=False)
     formatted = get_entry_point_script_contents(config=config)
     expected = ("#!/usr/bin/env bash\n"

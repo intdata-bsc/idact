@@ -25,7 +25,7 @@ def test_merge_cluster_configs():
     cluster_2 = ClusterConfigImpl(host='localhost2',
                                   port=2,
                                   user='user-2',
-                                  auth=AuthMethod.PUBLIC_KEY,
+                                  auth=AuthMethod.GENERATE_KEY,
                                   key='key2',
                                   install_key=True,
                                   disable_sshd=False,
@@ -45,7 +45,7 @@ def test_merge_cluster_configs():
         host='localhost2',
         port=2,
         user='user-2',
-        auth=AuthMethod.PUBLIC_KEY,
+        auth=AuthMethod.GENERATE_KEY,
         key='key1',
         install_key=False,
         disable_sshd=False,
@@ -87,7 +87,7 @@ def test_merge_cluster_configs():
         host='localhost2',
         port=2,
         user='user-2',
-        auth=AuthMethod.PUBLIC_KEY,
+        auth=AuthMethod.GENERATE_KEY,
         key='key2',
         install_key=True,
         disable_sshd=False,
@@ -129,7 +129,7 @@ def test_sanitize_cluster_config():
 
 
 def test_merge_common_clusters():
-    auth = AuthMethod.PUBLIC_KEY
+    auth = AuthMethod.GENERATE_KEY
     target_clusters = {'a': ClusterConfigImpl(host='localhost1',
                                               port=1,
                                               user='user-1',
@@ -189,7 +189,7 @@ def test_merge_common_clusters():
 
 
 def test_sanitize_new_clusters():
-    auth = AuthMethod.PUBLIC_KEY
+    auth = AuthMethod.GENERATE_KEY
     target_clusters = {'a': ClusterConfigImpl(host='localhost1',
                                               port=1,
                                               user='user-1',
@@ -253,7 +253,7 @@ def test_sanitize_new_clusters():
 
 
 def test_merge_environments():
-    auth = AuthMethod.PUBLIC_KEY
+    auth = AuthMethod.GENERATE_KEY
     environment_1 = EnvironmentImpl(
         config=ClientConfig(clusters={'a': ClusterConfigImpl(host='localhost1',
                                                              port=1,

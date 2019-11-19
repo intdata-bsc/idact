@@ -26,7 +26,7 @@ VALID_CLIENT_CLUSTER_CONFIG_WITH_PUBLIC_KEY_AUTH = \
     ClusterConfigImpl(host='abc',
                       port=22,
                       user='user',
-                      auth=AuthMethod.PUBLIC_KEY,
+                      auth=AuthMethod.GENERATE_KEY,
                       key='/home/user/.ssh/id_rsa',
                       install_key=False,
                       setup_actions=SetupActionsConfigImpl(jupyter=['echo a']))
@@ -52,7 +52,7 @@ def test_client_cluster_config_validation_is_used():
         ClusterConfigImpl(host='abc',
                           port=22,
                           user='user',
-                          auth=AuthMethod.PUBLIC_KEY,
+                          auth=AuthMethod.GENERATE_KEY,
                           key='')
 
 

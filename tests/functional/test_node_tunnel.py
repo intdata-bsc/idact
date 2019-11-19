@@ -96,7 +96,7 @@ def test_node_tunnel_public_key():
         stack.enter_context(disable_pytest_stdin())
         stack.enter_context(set_up_key_location(user))
         stack.enter_context(reset_environment(user=user,
-                                              auth=AuthMethod.PUBLIC_KEY))
+                                              auth=AuthMethod.GENERATE_KEY))
 
         cluster = show_cluster(name=TEST_CLUSTER)
 

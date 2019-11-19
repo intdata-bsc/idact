@@ -12,12 +12,15 @@ class AuthMethod(Enum):
 
         :attr:`.ASK`: Ask for password every time it's needed.
 
-        :attr:`.PUBLIC_KEY`: Generate a private and public key pair, and
+        :attr:`.GENERATE_KEY`: Generate a private and public key pair, and
                              install the public key.
+
+        :attr:`.PRIVATE_KEY`: Authenticate with previously generated key
 
     """
     ASK = 0
-    PUBLIC_KEY = 1
+    GENERATE_KEY = 1
+    PRIVATE_KEY = 2
 
 
 class KeyType(Enum):

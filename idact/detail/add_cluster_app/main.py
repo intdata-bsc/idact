@@ -29,11 +29,21 @@ from idact.detail.add_cluster_app import actions_parser as parser
               type=int,
               help="The ssh port. Default: 22")
 @click.option('--auth',
-              default='PUBLIC_KEY',
+              default='GENERATE_KEY',
               type=str,
               help="Authentication method. "
-              "Avilable values: PUBLIC_KEY, ASK_EVERYTIME. "
-              "Default: PUBLIC_KEY")
+              "Available values: GENERATE_KEY, PRIVATE_KEY, ASK_EVERYTIME. "
+              "Default: GENERATE_KEY")
+@click.option('--key',
+              default="~/.ssh",
+              type=str,
+              help="Path to the previously generated private key "
+                   "Default location: ~/.ssh")
+@click.option('--key_type',
+              default="RSA",
+              type=str,
+              help="Key type of a newly generated key "
+                   "Available types: RSA ")
 @click.option('--install_key',
               default=True,
               is_flag=True,
@@ -56,6 +66,8 @@ def main(cluster_name: str,
          host: Optional[str],
          port: Optional[int],
          auth: Optional[AuthMethod],
+         key: Optional[str],
+         key_type: Optional[str],
          install_key: bool,
          actions_file: Optional[str],
          use_jupyter_lab: bool) -> int:
@@ -74,22 +86,39 @@ def main(cluster_name: str,
 
     log.info("Adding cluster...")
 
-    if auth == 'PUBLIC_KEY':
-        auth_method = AuthMethod.PUBLIC_KEY
-        key_type = KeyType.RSA
+    if auth == 'GENERATE_KEY':
+        auth_method = AuthMethod.GENERATE_KEY
+        if key_type == 'RSA':
+            key_type = KeyType.RSA
+        else:
+            raise ValueError("Unknown key type")
     elif auth == 'ASK_EVERYTIME':
         auth_method = AuthMethod.ASK
         key_type = None
+    elif auth == 'PRIVATE_KEY':
+        auth_method = AuthMethod.PRIVATE_KEY
+        install_key = False
+        key_type = None
     else:
-        raise ValueError("Auth must be one of: PUBLIC_KEY, ASK_EVERYTIME")
+        raise ValueError("Auth must be one of: PUBLIC_KEY, PRIVATE KEY,"
+                         " ASK_EVERYTIME")
 
-    cluster = add_cluster(name=cluster_name,
-                          user=user,
-                          host=host,
-                          port=port,
-                          auth=auth_method,
-                          key=key_type,
-                          install_key=install_key)
+    if auth_method == AuthMethod.PRIVATE_KEY:
+        cluster = add_cluster(name=cluster_name,
+                              user=user,
+                              host=host,
+                              port=port,
+                              auth=auth_method,
+                              key=key,
+                              install_key=install_key)
+    else:
+        cluster = add_cluster(name=cluster_name,
+                              user=user,
+                              host=host,
+                              port=port,
+                              auth=auth_method,
+                              key=key_type,
+                              install_key=install_key)
 
     node = cluster.get_access_node()
     node.connect()
