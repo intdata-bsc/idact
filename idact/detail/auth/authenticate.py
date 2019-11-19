@@ -46,8 +46,8 @@ def get_host_strings(host: str,
     return env_gateway, env_host_string
 
 
-def install_key_using_password_authentication(config: ClusterConfig,
-                                              password: Optional[str] = None):
+def install_key_using_password_auth(config: ClusterConfig,
+                                    password: Optional[str] = None):
     """Authenticates with a password and tries to install public key,
         using the default authorized_keys file.
 
@@ -111,7 +111,7 @@ def authenticate(host: str,
                                     after authentication.
 
     """
-    if config.auth not in AuthMethod.__members__.values():
+    if config.auth not in [AuthMethod.ASK, AuthMethod.PUBLIC_KEY]:
         raise NotImplementedError(
             "Authentication method not implemented: '{}'.".format(
                 config.auth))
@@ -130,13 +130,12 @@ def authenticate(host: str,
     try:
         if config.auth == AuthMethod.ASK:
             env.password = get_password(config=config)
-        elif config.auth == AuthMethod.GENERATE_KEY:
+        elif config.auth == AuthMethod.PUBLIC_KEY:
             if config.install_key:
                 with stage_info(log, "Installing key using password"
                                      " authentication."):
-                    install_key_using_password_authentication(
-                        config=config,
-                        password=password)
+                    install_key_using_password_auth(config=config,
+                                                    password=password)
                 env.key_filename = config.key
                 config.install_key = False
                 env.password = None
