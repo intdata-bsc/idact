@@ -94,6 +94,8 @@ def main(cluster_name: str,
          native_arg: List[Tuple[str, str]]) -> int:
     """A console script that allocates resources
 
+        To allocate resources for future provide --begin as a native argument
+
         CLUSTER_NAME argument is the cluster name to execute the notebook on.
         It must already be present in the config file.
 
