@@ -91,7 +91,7 @@ def main(cluster_name: str,
         if key_type == 'RSA':
             key_type = KeyType.RSA
         else:
-            ValueError("Unknown key type")
+            raise ValueError("Unknown key type")
     elif auth == 'ASK_EVERYTIME':
         auth_method = AuthMethod.ASK
         key_type = None

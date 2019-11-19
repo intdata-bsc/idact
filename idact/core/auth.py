@@ -15,7 +15,7 @@ class AuthMethod(Enum):
         :attr:`.GENERATE_KEY`: Generate a private and public key pair, and
                              install the public key.
 
-         :attr:`.PRIVATE_KEY`: Authenticate with previously generated key
+        :attr:`.PRIVATE_KEY`: Authenticate with previously generated key
 
     """
     ASK = 0
