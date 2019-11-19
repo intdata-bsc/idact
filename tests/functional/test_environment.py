@@ -75,7 +75,7 @@ def check_config_is_modified(config: ClusterConfig):
     assert config.host == 'localhost2'
     assert config.port == 2222
     assert config.user == 'other'
-    assert config.auth == AuthMethod.PUBLIC_KEY
+    assert config.auth == AuthMethod.GENERATE_KEY
     assert config.key == './fake-key'
     assert config.install_key is False
     assert config.disable_sshd
@@ -155,7 +155,7 @@ def test_environment_create_modify_save_load():
             config.host = 'localhost2'
             config.port = 2222
             config.user = 'other'
-            config.auth = AuthMethod.PUBLIC_KEY
+            config.auth = AuthMethod.GENERATE_KEY
             config.key = './fake-key'
             config.install_key = False
             config.disable_sshd = True

@@ -32,7 +32,7 @@ def run_notebook_app(user: str,
         stack.enter_context(set_up_key_location(user))
         stack.enter_context(reset_environment(
             user=user,
-            auth=AuthMethod.PUBLIC_KEY))
+            auth=AuthMethod.GENERATE_KEY))
         stack.enter_context(set_password(get_test_user_password(user)))
 
         cluster = show_cluster(name=TEST_CLUSTER)

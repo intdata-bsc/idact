@@ -72,7 +72,7 @@ cluster = add_cluster(name="short-cluster-name",
                       user="user",
                       host="login-node.cluster.example.com",
                       port=22,
-                      auth=AuthMethod.PUBLIC_KEY,
+                      auth=AuthMethod.GENERATE_KEY,
                       key="~/.ssh/id_rsa",
                       install_key=False)
 node = cluster.get_access_node()

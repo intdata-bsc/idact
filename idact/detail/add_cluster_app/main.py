@@ -29,7 +29,7 @@ from idact.detail.add_cluster_app import actions_parser as parser
               type=int,
               help="The ssh port. Default: 22")
 @click.option('--auth',
-              default='GENERATE_NEW_KEY',
+              default='GENERATE_KEY',
               type=str,
               help="Authentication method. "
               "Available values: GENERATE_KEY, PRIVATE_KEY, ASK_EVERYTIME. "
@@ -100,7 +100,8 @@ def main(cluster_name: str,
         install_key = False
         key_type = None
     else:
-        raise ValueError("Auth must be one of: PUBLIC_KEY, PRIVATE KEY, ASK_EVERYTIME")
+        raise ValueError("Auth must be one of: PUBLIC_KEY, PRIVATE KEY,"
+                         " ASK_EVERYTIME")
 
     if auth_method == AuthMethod.PRIVATE_KEY:
         cluster = add_cluster(name=cluster_name,

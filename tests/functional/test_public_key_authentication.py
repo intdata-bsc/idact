@@ -147,7 +147,7 @@ def test_generate_and_install_key_on_access_node():
                         user=user,
                         host=get_testing_host(),
                         port=get_testing_port(),
-                        auth=AuthMethod.PUBLIC_KEY,
+                        auth=AuthMethod.GENERATE_KEY,
                         key=None,
                         install_key=True)
 
@@ -156,7 +156,7 @@ def test_generate_and_install_key_on_access_node():
                     user=user,
                     host=get_testing_host(),
                     port=get_testing_port(),
-                    auth=AuthMethod.PUBLIC_KEY,
+                    auth=AuthMethod.GENERATE_KEY,
                     key=KeyType.RSA,
                     install_key=True,
                     retries={Retry.PORT_INFO: set_retry(count=0)})
@@ -174,7 +174,7 @@ def test_generate_but_do_not_install_key_on_access_node():
                     user=user,
                     host=get_testing_host(),
                     port=get_testing_port(),
-                    auth=AuthMethod.PUBLIC_KEY,
+                    auth=AuthMethod.GENERATE_KEY,
                     key=KeyType.RSA,
                     install_key=False)
 
@@ -202,7 +202,7 @@ def test_install_already_generated_key_on_access_node():
                     user=user,
                     host=get_testing_host(),
                     port=get_testing_port(),
-                    auth=AuthMethod.PUBLIC_KEY,
+                    auth=AuthMethod.GENERATE_KEY,
                     key=key,
                     install_key=True,
                     retries={Retry.PORT_INFO: set_retry(count=0)})
@@ -224,7 +224,7 @@ def test_generate_and_install_missing_key_on_access_node():
                     user=user,
                     host=get_testing_host(),
                     port=get_testing_port(),
-                    auth=AuthMethod.PUBLIC_KEY,
+                    auth=AuthMethod.GENERATE_KEY,
                     key=missing_key,
                     install_key=True,
                     retries={Retry.PORT_INFO: set_retry(count=0)})
@@ -262,7 +262,7 @@ def test_generate_and_install_key_no_sshd():
                     user=user,
                     host=get_testing_host(),
                     port=get_testing_port(),
-                    auth=AuthMethod.PUBLIC_KEY,
+                    auth=AuthMethod.GENERATE_KEY,
                     key=KeyType.RSA,
                     install_key=True,
                     disable_sshd=True,
@@ -289,7 +289,7 @@ def test_empty_public_key_causes_runtime_error():
                               user=user,
                               host=get_testing_host(),
                               port=get_testing_port(),
-                              auth=AuthMethod.PUBLIC_KEY,
+                              auth=AuthMethod.GENERATE_KEY,
                               key=key)
 
         node = cluster.get_access_node()
