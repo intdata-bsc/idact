@@ -1,4 +1,4 @@
-"""This module contains the :func:`main` function for the allocating resources
+"""This module contains the :func:`main` function for allocating resources
 , see :mod:`idact.allocate_resources`.
 
  Note: The :func:`main` function uses :func:`click.command`, so it doesn't
