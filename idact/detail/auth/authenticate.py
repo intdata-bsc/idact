@@ -111,7 +111,7 @@ def authenticate(host: str,
                                     after authentication.
 
     """
-    if config.auth not in AuthMethod.__members__.items():
+    if config.auth not in AuthMethod.__members__.values():
         raise NotImplementedError(
             "Authentication method not implemented: '{}'.".format(
                 config.auth))
