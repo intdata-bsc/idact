@@ -111,7 +111,7 @@ def authenticate(host: str,
                                     after authentication.
 
     """
-    if config.auth not in [AuthMethod.ASK, AuthMethod.PUBLIC_KEY]:
+    if config.auth not in AuthMethod.__members__.items():
         raise NotImplementedError(
             "Authentication method not implemented: '{}'.".format(
                 config.auth))
@@ -130,7 +130,7 @@ def authenticate(host: str,
     try:
         if config.auth == AuthMethod.ASK:
             env.password = get_password(config=config)
-        elif config.auth == AuthMethod.PUBLIC_KEY:
+        elif config.auth == AuthMethod.GENERATE_KEY:
             if config.install_key:
                 with stage_info(log, "Installing key using password"
                                      " authentication."):
