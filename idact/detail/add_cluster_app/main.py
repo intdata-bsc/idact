@@ -39,11 +39,6 @@ from idact.detail.add_cluster_app import actions_parser as parser
               type=str,
               help="Path to the previously generated private key "
                    "Default location: ~/.ssh")
-@click.option('--key_type',
-              default="RSA",
-              type=str,
-              help="Key type of a newly generated key "
-                   "Available types: RSA ")
 @click.option('--install_key',
               default=True,
               is_flag=True,
@@ -88,10 +83,7 @@ def main(cluster_name: str,
 
     if auth == 'GENERATE_KEY':
         auth_method = AuthMethod.GENERATE_KEY
-        if key_type == 'RSA':
-            key_type = KeyType.RSA
-        else:
-            raise ValueError("Unknown key type")
+        key_type = KeyType.RSA
     elif auth == 'ASK_EVERYTIME':
         auth_method = AuthMethod.ASK
         key_type = None
