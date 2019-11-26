@@ -17,6 +17,7 @@ from idact import load_environment, show_cluster
 from idact.detail.allocation.allocation_parameters import AllocationParameters
 from idact.detail.config.client.client_cluster_config import ClusterConfigImpl
 from idact.detail.deployment.cancel_local_on_exit import cancel_local_on_exit
+from idact.detail.entry_point.fetch_port_info import fetch_port_info
 from idact.detail.helper.ensure_stdin_has_fileno import \
     ensure_stdin_has_fileno
 from idact.detail.jupyter_app.format_deployments_info import \
@@ -71,12 +72,14 @@ def main(cluster_name: str,
             job = run_squeue_task()
 
             node_count = job.node_count
-            print(config)
             nodes_in_cluster = \
                 [NodeImpl(config=config) for _ in range(node_count)]
 
-            nodes_in_cluster[0].make_allocated(host=config.host,
-                                               port=config.port,
+            port_info = fetch_port_info(job_id, cluster.config)
+            [node_name, port] = port_info.split(":")
+
+            nodes_in_cluster[0].make_allocated(host=node_name,
+                                               port=int(port),
                                                cores=None,
                                                memory=None,
                                                allocated_until=job.end_time)

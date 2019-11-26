@@ -34,7 +34,7 @@ SNIPPET_SEPARATOR_LENGTH = 10
 @click.argument('cluster_name',
                 type=str)
 @click.option('--environment', '-e',
-              default="~/.idact.conf",
+              default=None,
               type=str,
               help="Environment path. Default: ~/.idact.conf"
                    " or the value of IDACT_CONFIG_PATH.")
