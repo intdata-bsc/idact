@@ -76,7 +76,7 @@ def main(cluster_name: str,
                 [NodeImpl(config=config) for _ in range(node_count)]
 
             port_info = fetch_port_info(job_id, cluster.config)
-            [node_name, port] = port_info.split(":")
+            [node_name, port] = port_info.split(" ")[0].split(":")
 
             nodes_in_cluster[0].make_allocated(host=node_name,
                                                port=int(port),
