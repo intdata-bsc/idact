@@ -124,6 +124,27 @@ class ClusterImpl(Cluster):
                 node=node,
                 deployments=deployments)
 
+    def override_deployments(self, deployments_to_override: SynchronizedDeployments):
+        log = get_logger(__name__)
+        with stage_info(log, "Pushing deployments: %s", deployments_to_override):
+            node = self.get_access_node()
+
+            deployments = DeploymentDefinitions()
+
+            for nodes_collection in deployments_to_override.nodes:
+                add_deployment_definition(deployments=deployments,
+                                          deployment=nodes_collection)
+            for jupyter_deployment in deployments_to_override.jupyter_deployments:
+                add_deployment_definition(deployments=deployments,
+                                          deployment=jupyter_deployment)
+            for dask_deployment in deployments_to_override.dask_deployments:
+                add_deployment_definition(deployments=deployments,
+                                          deployment=dask_deployment)
+
+            serialize_deployment_definitions_to_cluster(
+                node=node,
+                deployments=deployments)
+
     def pull_deployments(self) -> SynchronizedDeployments:
         log = get_logger(__name__)
         with stage_info(log, "Pulling deployments."):
