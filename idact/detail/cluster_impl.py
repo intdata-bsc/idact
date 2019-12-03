@@ -124,20 +124,20 @@ class ClusterImpl(Cluster):
                 node=node,
                 deployments=deployments)
 
-    def override_deployments(self, deployments_to_override: SynchronizedDeployments):
+    def override_deployments(self, new_deployments: SynchronizedDeployments):
         log = get_logger(__name__)
-        with stage_info(log, "Pushing deployments: %s", deployments_to_override):
+        with stage_info(log, "Pushing deployments: %s", new_deployments):
             node = self.get_access_node()
 
             deployments = DeploymentDefinitions()
 
-            for nodes_collection in deployments_to_override.nodes:
+            for nodes_collection in new_deployments.nodes:
                 add_deployment_definition(deployments=deployments,
                                           deployment=nodes_collection)
-            for jupyter_deployment in deployments_to_override.jupyter_deployments:
+            for jupyter_deployment in new_deployments.jupyter_deployments:
                 add_deployment_definition(deployments=deployments,
                                           deployment=jupyter_deployment)
-            for dask_deployment in deployments_to_override.dask_deployments:
+            for dask_deployment in new_deployments.dask_deployments:
                 add_deployment_definition(deployments=deployments,
                                           deployment=dask_deployment)
 
