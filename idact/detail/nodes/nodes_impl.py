@@ -33,6 +33,16 @@ class NodesImpl(Nodes, Serializable):  # pylint: disable=too-many-ancestors
         self._uuid = uuid if uuid is not None else get_uuid()
 
     @property
+    def nodes(self) -> List[NodeImpl]:
+        """List of nodes"""
+        return self._nodes
+
+    @property
+    def allocation(self) -> Allocation:
+        """Allocation related to nodes"""
+        return self._allocation
+
+    @property
     def uuid(self) -> str:
         """Unique deployment id."""
         return self._uuid

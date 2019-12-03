@@ -119,6 +119,16 @@ class SlurmAllocation(Allocation):
                 squeue[self._job_id].state == 'RUNNING')
 
     @property
+    def job_id(self) -> int:
+        """Job identifier"""
+        return self._job_id
+
+    @property
+    def parameters(self) -> AllocationParameters:
+        """Allocation parameters"""
+        return self._parameters
+
+    @property
     def waited(self) -> bool:
         return self._done_waiting
 

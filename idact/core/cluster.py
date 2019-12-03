@@ -88,6 +88,14 @@ class Cluster(ABC):
         pass
 
     @abstractmethod
+    def override_deployments(self, new_deployments: SynchronizedDeployments):
+        """Overrides deployments on the cluster.
+
+        :param new_deployments: Deployments to be pushed.
+        """
+        pass
+
+    @abstractmethod
     def pull_deployments(self) -> SynchronizedDeployments:
         """Pulls all pushed deployments from the cluster."""
         pass
