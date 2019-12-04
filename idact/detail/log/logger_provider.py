@@ -21,16 +21,16 @@ class LoggerProvider:
             self.__dict__ = LoggerProvider._state
             return
 
-        formatter = logging.Formatter(
+        self.formatter = logging.Formatter(
             fmt="%(asctime)s %(levelname)s: %(message)s",
             datefmt="%Y-%m-%d %H:%M:%S")
 
         self._stream_handler = logging.StreamHandler(stream=sys.stdout)
-        self._stream_handler.setFormatter(formatter)
+        self._stream_handler.setFormatter(self.formatter)
 
         self._file_handler = logging.FileHandler(filename='idact.log',
                                                  mode='w')
-        self._file_handler.setFormatter(formatter)
+        self._file_handler.setFormatter(self.formatter)
 
         self._handlers = [self._stream_handler,
                           self._file_handler]
@@ -75,3 +75,13 @@ class LoggerProvider:
         logger.filters = self._debug_log_filters
 
         return logger
+
+    def set_stream(self, stream: object):
+        """Sets stream for loggers.
+
+        :param stream: Object to write logs to, should have 'write' method.
+        """
+        self._stream_handler = logging.StreamHandler(stream=stream)
+        self._stream_handler.setFormatter(self.formatter)
+        self._handlers = [self._stream_handler,
+                          self._file_handler]
