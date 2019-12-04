@@ -132,6 +132,10 @@ class SlurmAllocation(Allocation):
     def waited(self) -> bool:
         return self._done_waiting
 
+    @waited.setter
+    def waited(self, done_waiting):
+        self._done_waiting = done_waiting
+
     def serialize(self) -> dict:
         return {'type': str(SerializableTypes.SLURM_ALLOCATION),
                 'job_id': self._job_id,
