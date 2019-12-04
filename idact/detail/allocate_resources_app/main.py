@@ -131,13 +131,14 @@ def main(cluster_name: str,
             click.echo(format_allocation_parameters(parameters=parameters))
 
             click.echo("Allocating nodes.")
-            cluster.allocate_nodes(
+            nodes = cluster.allocate_nodes(
                 nodes=parameters.nodes,
                 cores=parameters.cores,
                 memory_per_node=parameters.memory_per_node,
                 walltime=parameters.walltime,
                 native_args=convert_native_args_from_command_line_to_dict(
                     native_args=parameters.native_args))
+            cluster.push_deployment(nodes)
     except:  # noqa, pylint: disable=broad-except
         if log is not None:
             log.error("Exception raised.", exc_info=1)
