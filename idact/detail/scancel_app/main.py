@@ -3,7 +3,7 @@
 
  Note: The :func:`main` function uses :func:`click.command`, so it doesn't
  show up in API docs for this module. See help message in
- :mod:`idact.squeue`
+ :mod:`idact.scancel`
  instead.
 
 """
